@@ -1,0 +1,186 @@
+@startuml
+skinparam linetype polyline
+hide circle
+hide stereotype
+
+skinparam class<<AS>> {
+ BorderColor DarkRed
+ BackgroundColor MistyRose
+ HeaderBackgroundColor #f09090
+}
+
+
+
+skinparam class<<MD>> {
+ BorderColor DarkSlateGray
+ BackgroundColor WhiteSmoke
+ HeaderBackgroundColor #909090
+}
+
+
+
+
+skinparam class<<FL>> {
+ BorderColor #b07050
+ BackgroundColor BUSINESS
+ HeaderBackgroundColor #f2f295
+}
+
+skinparam class<<TM>> {
+ BorderColor #505090
+ BackgroundColor APPLICATION
+ HeaderBackgroundColor SkyBlue
+}
+
+
+
+skinparam class<<TL>> {
+ BorderColor DarkGreen
+ BackgroundColor PHYSICAL
+ HeaderBackgroundColor LimeGreen
+}
+
+
+package "IHE Profile " as IHEProfile {
+
+package "Functional Module" as Functional {
+  class "**Use Case**" as UCase<<FL>> {
+  }
+/'
+  Class "**Service**" as Interaction<<FL>> {
+  }
+
+'/
+  Class "**Logical Model**" as LogicalModel<<FL>> {
+  --
+  StructureDefinition
+  }
+
+/'
+  Class "**Example Content**" as Example<<TL>> {
+  --
+  ???
+  }
+'/
+}
+
+  Class "**Actor**" as Actor<<AS>> {
+|_ **ID**
+|_ Name
+|_ Description
+|_ Transaction
+  |_ Role
+  |_ Condition
+|_ Option
+  |_ Required
+CapabilityStatement  
+--
+}
+
+  Class "** Profile Data **" as ImpGuide<<MD>> {
+|_ **ID**
+|_ Profile Name
+|_ Profile Acronym
+|_ Domain Name
+|_ Domain Acronym
+|_ Domain Contact
+|_ Status
+ImplementationGuide
+--
+}
+
+Class "**  Glossary Term  **" as BTerm<<TM>> {
+|_ **ID**
+|_ Name
+|_ Definition
+|_ Status
+|_ Domain
+CodeSystem
+--
+}
+
+
+package "Terminology" as Term {
+  Class "** Code System **" as CodeSystem<<TM>> {
+    --
+    CodeSystem
+  }
+  Class "** Value Set **" as ValueSet<<TM>> {
+    --
+    ValueSet
+  }
+CodeSystem -down[hidden]-> ValueSet
+}
+
+
+
+package "Technical Module" as Tech {
+
+  Class "**Transaction**" as Transaction<<TL>> {
+    |_ **ID**
+    |_ Name
+    |_ Description
+    |_ Actors
+    |_ Step
+    |_ Content
+      |_ Terminology?  
+    PlanDefinition?
+    --
+    }
+
+  Class "**   Profile    **" as Profile<<TL>> {
+  --
+  StructureDefinition
+  }
+
+  Class "** Operation Definition **" as OpDef<<TL>> {
+  --
+  OperationDefinition
+  }
+
+  Class "** Search Parameter **" as SearchParam<<TL>> {
+  --
+  SearchParameter
+  }
+
+
+  Class "** Example  **\n**  Instance **" as ExampleInstance<<TL>> {
+  (Diagram source)
+  --
+  Resource
+  }
+
+  Class "**Example**\n**Scenario**" as ExampleScenario<<TL>> {
+  --
+  ExampleScenario
+  }
+}
+
+
+
+'UCase -up[hidden]-> Term
+UCase -down[hidden]-> ExampleScenario
+Profile -right[hidden]-> OpDef
+OpDef -down[hidden]-> SearchParam
+
+'Profile -right[hidden]-> ExampleInstance: " "
+ExampleScenario -down[hidden]-> ExampleInstance: " "
+OpDef -up[hidden]-> ValueSet
+UCase -right[hidden]-> LogicalModel
+
+
+UCase -right[hidden]-> LogicalModel : "     "
+LogicalModel -right[hidden]-> Term : "                  "
+UCase -up[hidden]-> ImpGuide
+
+Actor -down[hidden]-> CodeSystem
+ImpGuide -right[hidden]-> BTerm: "           "
+BTerm -right[hidden]-> Actor: "            "
+Functional -down[hidden]-> Tech
+
+'Actor -right[hidden]-> Term: "                       "
+
+
+}
+
+@enduml

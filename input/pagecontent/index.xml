@@ -1,0 +1,21 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> </head><p><strong>­Integrating the Healthcare Enterprise</strong></p>
+<p></p>
+<p><img src="index-image1.jpeg" style="width:1.78681in;height:0.92014in" alt="IHE_LOGO_for_tf-docs" /></p>
+<p></p>
+<p></p>
+<p><strong>Implementation Guide</strong></p>
+<p><strong>Profile Model</strong></p>
+<p></p>
+<p></p>
+<p></p>
+<p><strong>{{site.data.fhir.igId | upcase}}\{{site.data.pages[page.path].title}}</strong></p>
+<p></p>
+<p></p>
+<p><strong>FHIR ® {{site.data.fhir.version}}</strong></p>
+<p><strong>Draft in preparation</strong></p>
+<p></p>
+<p></p>
+<p>This is a development repository which contains some of the proposed functionalities for IHE’s new way of documenting profiles using Implementation Guides.</p>
+<p></p>
+<p>To get started go <a href="intro.html">here</a></p>
+</div>
